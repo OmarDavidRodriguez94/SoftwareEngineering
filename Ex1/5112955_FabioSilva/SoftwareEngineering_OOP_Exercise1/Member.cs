@@ -1,9 +1,6 @@
 ﻿public class Member
 {
     //instace atributes [each song gets theis own]
-    private string name;
-    public int age;
-    private string membershipLevel;
 
 
     // ============================
@@ -20,14 +17,11 @@
     //static atribute (describres de class, not an object)
     private static int memberCount = 0;
 
-   
-
-
-
     // ============================
     // 2. Full property for Age with simple logic
-    
-    
+
+
+    private int age;
     public int Age
     {
         get { return age; }
@@ -51,12 +45,11 @@
     // - Demonstrates static auto-properties and class-level data
 
     //Static Method (belongs to the class
+    public static int TotalMembers = 0;
 
-    private static int members = 0;
+    
 
-
-
-
+    // ============================
     // ============================
     // 4. Static full property with logic for TotalBooksBorrowed
     private static int totalBooksBorrowed;
@@ -70,7 +63,10 @@
             // - If the value is less than 0, set it to 0
             // - Otherwise, store the provided value
             // - Demonstrates static full properties with validation logic
-            if ( totalBooksBorrowed < 0) totalBooksBorrowed = 0;
+            if (value < 0)
+                return;
+
+            totalBooksBorrowed += value;
         }
     }
 
@@ -80,17 +76,20 @@
     // Instructions:
     // - This property should be readable publicly but only writable inside the class
     // - Demonstrates controlled access to a property
+    public string MembershipLevel { get; private set; }
 
-    public static string MembershipLevel { private set; get; }
+    
+    
 
-
-
-
+    
     // ============================
     // 6. Private instance attribute booksBorrowed
     // TODO: Create a private field to track the number of books a member has borrowed
     // Instructions:
     // - Demonstrates encapsulation of instance data
+    private int booksBorrowed;
+
+
 
 
     // ============================
@@ -102,17 +101,30 @@
     // - Define one field for VIP members with a limit of 10 books
     // - Use private and static so these values are shared across all members and cannot be changed from outside
     // - Demonstrates using class-level variables to enforce business rules
+    private static int standMemberLimit = 3;
+    private static int premiumMemberLimit = 5;
+    private static int vipMemberLimit = 10;
+
 
 
     // ============================
     // Constructor
-    public Member(string name, int age, string membershipLevel)
+    public Member(string name, int age, string level)
     {
-        this.name = name;
-        this.age = age;
-        this.membershipLevel = membershipLevel;
+        // TODO: Initialize Name, Age, and MembershipLevel
+        // Instructions:
+        // - Store the provided name in the Name property
+        // - Store the provided age in the Age property (it will correct negative ages)
+        // - Store the provided membership level in the MembershipLevel property
+        // - Initialize the number of books borrowed to 0
+        // - Increment TotalMembers by 1
+        // - Demonstrates constructor usage and interaction with static and instance data
+        Name = name;
+        Age = age;
+        MembershipLevel = level;
 
-        members++;
+        booksBorrowed = 0;
+        TotalMembers += 1;
     }
 
     // ============================
@@ -125,7 +137,17 @@
         // - Return the corresponding maximum from the static max borrow limits defined earlier
         // - If the membership level is unknown, return 0
         // - Demonstrates encapsulation of business logic and use of static fields
-        return 0; // placeholder
+        switch (MembershipLevel.ToLower())
+        {
+            case "standard":
+                return standMemberLimit;
+            case "premium":
+                return premiumMemberLimit;
+            case "vip":
+                return vipMemberLimit;
+            default:
+                return 0;
+        }
     }
 
     // ============================
@@ -141,6 +163,17 @@
         // - If the member has reached the limit:
         //    - Print a message: "<Name> has reached their borrowing limit.", where <Name> is the member's name property
         // - Demonstrates using private methods, instance and static data together, with user feedback
+        int limitAllowed = GetMaxBorrowLimit();
+
+        if (limitAllowed > booksBorrowed)
+        {
+            booksBorrowed += 1;
+            totalBooksBorrowed += 1;
+        }
+        else
+        {
+            Console.WriteLine($"{Name} has reached their borrowing limit.");
+        }
     }
 
     // ============================
@@ -154,6 +187,15 @@
         // - If the member has returned all books:
         //    - Print a message: "<Name> has returned all their books.", where <Name> is the member's name property
         // - Demonstrates safe decrement of instance and static attributes with user feedback
+        if (booksBorrowed > 0)
+        {
+            booksBorrowed -= 1;
+            totalBooksBorrowed -= 1;
+        }
+        else
+        {
+            Console.WriteLine($"{Name} has returned all their books.");
+        }
     }
 
     // ============================
@@ -163,6 +205,6 @@
     {
         // Instructions:
         // - Demonstrates encapsulation and controlled access to a private data attribute
-        return 0; // placeholder
+        return booksBorrowed;
     }
 }

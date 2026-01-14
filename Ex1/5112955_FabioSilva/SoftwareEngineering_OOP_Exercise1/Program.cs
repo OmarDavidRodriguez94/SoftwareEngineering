@@ -7,6 +7,9 @@
         // - Instantiate one "Standard", one "Premium", one "VIP" member
         // - make up your own names and ages for the members you create
         // - Demonstrates object creation and constructor usage
+        Member a = new Member("Fabio", 37, "Premium");
+        Member b = new Member("Roberta", 36, "VIP");
+        Member c = new Member("Matheus", -12, "Standard");
 
 
         // TODO: Call BorrowBook() multiple times for each member
@@ -15,36 +18,72 @@
         // - Ensure the message prints when the limit is reached
         // - Demonstrates instance vs static data and conditional logic
 
+        for (int i = 0; i < 5 ; i++)
+        {
+            a.BorrowBook();
+        }
+
+        for (int i = 0; i < 15; i++)
+        {
+            b.BorrowBook();
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            c.BorrowBook();
+        }
+
 
         // TODO: Print out each member's name, age, membership level, and books borrowed
         // Instructions:
         // - Use properties and the method for borrowed books
         // - Demonstrates reading instance and property data
-
+        Console.WriteLine($"\nMember: {a.Name}, Age: {a.Age}, Membership level: {a.MembershipLevel}, Books borrowed: {a.GetBooksBorrowed()} ");
+        Console.WriteLine($"Member: {b.Name}, Age: {b.Age}, Membership level: {b.MembershipLevel}, Books borrowed: {b.GetBooksBorrowed()} ");
+        Console.WriteLine($"Member: {c.Name}, Age: {c.Age}, Membership level: {c.MembershipLevel}, Books borrowed: {c.GetBooksBorrowed()} ");
 
         // TODO: Print TotalMembers and TotalBooksBorrowed
         // Instructions:
         // - Use static properties
         // - Demonstrates reading class-level data
-
+        Console.WriteLine($"\nTotal Books Borrowed: {Member.TotalBooksBorrowed}\n");
 
         // TODO: Call ReturnBook() multiple times for all members
         // Instructions:
         // - Return all books for all members
         // - Ensure the message prints when all books are returned
         // - Demonstrates safe decrement of instance and static fields
+        for (int i = 0; i < 5; i++)
+        {
+            a.ReturnBook();
+        }
+        
+        for (int i = 0; i < 5; i++)
+        {
+            b.ReturnBook();
+        }
+        
+        for (int i = 0; i < 5; i++)
+        {
+            c.ReturnBook();
+        }
+
 
 
         // TODO: Print out each member's name, age, membership level, and books borrowed
         // Instructions:
         // - Use properties and the method for borrowed books
         // - Demonstrates reading instance and property data
+        Console.WriteLine($"\nMember: {a.Name}, Age: {a.Age}, Membership level: {a.MembershipLevel}, Books borrowed: {a.GetBooksBorrowed()} ");
+        Console.WriteLine($"Member: {b.Name}, Age: {b.Age}, Membership level: {b.MembershipLevel}, Books borrowed: {b.GetBooksBorrowed()} ");
+        Console.WriteLine($"Member: {c.Name}, Age: {c.Age}, Membership level: {c.MembershipLevel}, Books borrowed: {c.GetBooksBorrowed()} ");
 
 
         // TODO: Print TotalMembers and TotalBooksBorrowed
         // Instructions:
         // - Use static properties
         // - Demonstrates reading class-level data
+        Console.WriteLine($"\nTotal Members: {Member.TotalMembers} and Total Books Borrowed: {Member.TotalBooksBorrowed}\n");
 
         /*
             Instructions for Expected Output:
